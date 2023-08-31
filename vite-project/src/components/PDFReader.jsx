@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Loader from "./Loader";
 import { Document, Page, pdfjs } from "react-pdf";
 import ControlPanel from "./ControlPanel";
@@ -15,7 +15,7 @@ const PDFReader = ({ file }) => {
     setNumPages(numPages);
     setIsLoading(false);
   }
-
+  const containerRef = useRef(null);
   const toggleSignatureBox = () => {
     setSignatureMode((prevState) => !prevState);
   };
@@ -28,41 +28,19 @@ const PDFReader = ({ file }) => {
         id="pdf-section"
         className="d-flex flex-column align-items-center w-100"
       >
+        <div>&nbsp;</div>
         <div
+          ref={containerRef}
           onMouseDown={(e) => {
-            console.log("ENTER MOUSE");
-            const { clientX, clientY, screenX, screenY, pageX, pageY } = e;
-            console.log({
-              clientX,
-              clientY,
-              screenX,
-              screenY,
-              pageX,
-              pageY,
-              e,
-              containerWidth: e.target.offsetWidth,
-              containerHeight: e.target.offsetHeight,
-              // top:
-            });
+            console.log("ENTER");
+            console.log({ e, window, document, containerRef });
           }}
           onMouseUp={(e) => {
-            console.log("LEAVE MOUSE");
-            const { clientX, clientY, screenX, screenY, pageX, pageY } = e;
-            console.log({
-              clientX,
-              clientY,
-              screenX,
-              screenY,
-              e,
-              containerWidth: e.target.offsetWidth,
-              containerHeight: e.target.offsetHeight,
-              pageX,
-              pageY,
-            });
+            console.log("EXIT");
+            console.log({ e, window, document, containerRef });
           }}
           style={{ border: "1px solid #000000" }}
         >
-          <div>&nbsp;</div>
           <Document file={file} onLoadSuccess={onDocumentLoadSuccess}>
             <Page pageNumber={pageNumber} scale={scale} />
           </Document>
