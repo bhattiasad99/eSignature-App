@@ -8,7 +8,7 @@ const UploadPdf = () => {
     setFile(event.target.result);
   };
   return (
-    <div>
+    <div style={{ display: "flex", justifyContent: "center" }}>
       <label>
         Upload PDF
         <input
