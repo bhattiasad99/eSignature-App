@@ -1,7 +1,6 @@
 import { Navigate, createBrowserRouter } from "react-router-dom";
 import ErrorPage from "../pages/not-found";
 import Public from "../components/Layouts/Public";
-import App from "../pages/root";
 import Auth from "../components/Layouts/Auth";
 import Register from "../pages/register";
 import Login from "../pages/login";
@@ -14,7 +13,7 @@ export const router = createBrowserRouter([
     path: "/",
     element: <Public />,
     errorElement: <ErrorPage />,
-    children: [{ path: "", element: <App /> }],
+    children: [{ path: "", element: <Navigate to="/user" /> }],
   },
   {
     path: "/auth",
