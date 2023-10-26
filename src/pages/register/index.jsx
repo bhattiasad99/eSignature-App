@@ -13,12 +13,17 @@ const Register = () => {
 
   return (
     <AuthLayout heading="Register">
-      <TextFieldComponent label="Username" fullWidth />
-      <TextFieldComponent label="Password" type="password" fullWidth />
+      <TextFieldComponent label="First Name" fullWidth />
+      <TextFieldComponent label="Last Name" fullWidth />
+      <TextFieldComponent label="UserName" fullWidth />
+      <TextFieldComponent label="Company Name" fullWidth />
+      <TextFieldComponent type="email" label="Email" fullWidth />
+      <TextFieldComponent type="password" label="Password" fullWidth />
+      <TextFieldComponent type="password" label="Confirm Password" fullWidth />
       <ButtonComponent
         fullWidth
         onClick={() => {
-          dispatch(authActions);
+          dispatch(authActions.login());
         }}
       >
         Register

@@ -5,8 +5,16 @@ import Auth from "../components/Layouts/Auth";
 import Register from "../pages/register";
 import Login from "../pages/login";
 import Private from "../components/Layouts/Private";
-import { DASHBOARD, LOGIN, REGISTER } from "./constants";
+import {
+  EMAIL_SENT,
+  FORGOT_PASSWORD,
+  LOGIN,
+  REGISTER,
+  ROOT,
+} from "./constants";
 import Dashboard from "../pages/dashboard";
+import ForgotPassword from "../pages/forgot-password";
+import EmailSent from "../pages/email-sent";
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +30,8 @@ export const router = createBrowserRouter([
     children: [
       { path: "", element: <Navigate to={LOGIN} /> },
       { path: LOGIN, element: <Login /> },
+      { path: FORGOT_PASSWORD, element: <ForgotPassword /> },
+      { path: EMAIL_SENT, element: <EmailSent /> },
       { path: REGISTER, element: <Register /> },
     ],
   },
@@ -31,10 +41,10 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Navigate to={DASHBOARD} />,
+        element: <Navigate to={ROOT} />,
       },
       {
-        path: DASHBOARD,
+        path: ROOT,
         element: <Dashboard />,
       },
     ],

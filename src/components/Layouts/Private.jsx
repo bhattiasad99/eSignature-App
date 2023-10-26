@@ -10,11 +10,9 @@ const Private = () => {
   }
 
   return (
-    <div>
-      <Navbar isLoggedIn={isLoggedIn} />
-      <h1>private</h1>
+    <Navbar>
       <Outlet />
-    </div>
+    </Navbar>
   );
 };
 

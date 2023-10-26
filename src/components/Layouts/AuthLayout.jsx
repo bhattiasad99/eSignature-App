@@ -3,7 +3,7 @@ import CardComponent from "./../base/CardComponent";
 import StackComponent from "../base/StackComponent";
 import TypographyComponent from "../base/TypographyComponent";
 
-const AuthLayout = ({ children, heading }) => {
+const AuthLayout = ({ children, heading, subHeading }) => {
   return (
     <main
       style={{
@@ -28,9 +28,23 @@ const AuthLayout = ({ children, heading }) => {
         <StackComponent
           direction="column"
           alignItems="center"
-          sx={{ width: "80%", margin: "0 auto" }}
+          sx={{
+            width: "80%",
+            margin: "0 auto",
+            maxHeight: "80vh",
+            overflowY: "auto",
+          }}
         >
-          <TypographyComponent variant="h4">{heading}</TypographyComponent>
+          {heading ? (
+            <TypographyComponent sx={{ textAlign: "center" }} variant="h4">
+              {heading}
+            </TypographyComponent>
+          ) : null}
+          {subHeading ? (
+            <TypographyComponent sx={{ textAlign: "center" }} variant="body">
+              {subHeading}
+            </TypographyComponent>
+          ) : null}
           {children}
         </StackComponent>
       </CardComponent>
@@ -41,6 +55,7 @@ const AuthLayout = ({ children, heading }) => {
 AuthLayout.propTypes = {
   children: PropTypes.any,
   heading: PropTypes.any,
+  subHeading: PropTypes.any,
 };
 
 export default AuthLayout;

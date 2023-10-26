@@ -7,6 +7,9 @@ import TypographyComponent from "../../components/base/TypographyComponent";
 import LinkComponent from "../../components/base/LinkComponent";
 import StackComponent from "../../components/base/StackComponent";
 import DividerComponent from "../../components/base/DividerComponent";
+import { FORGOT_PASSWORD, REGISTER } from "../../config/constants";
+
+const LINK_STYLE = { fontWeight: 600, color: "blue", fontFamily: "roboto" };
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -15,10 +18,15 @@ const Login = () => {
     <AuthLayout heading="Login">
       <TextFieldComponent label="Username" fullWidth />
       <TextFieldComponent label="Password" type="password" fullWidth />
+      <StackComponent sx={{ width: "100%" }} justifyContent="flex-end">
+        <LinkComponent to={`/auth/${FORGOT_PASSWORD}`} linkStyle={LINK_STYLE}>
+          Forgot Password?
+        </LinkComponent>
+      </StackComponent>
       <ButtonComponent
         fullWidth
         onClick={() => {
-          dispatch(authActions);
+          dispatch(authActions.login());
         }}
       >
         Login
@@ -30,13 +38,7 @@ const Login = () => {
       </StackComponent>
       <TypographyComponent>
         Do Not Have An Account?{" "}
-        <LinkComponent
-          to="/auth/register"
-          linkStyle={{
-            fontWeight: 600,
-            color: "blue",
-          }}
-        >
+        <LinkComponent to={`/auth/${REGISTER}`} linkStyle={LINK_STYLE}>
           Sign Up
         </LinkComponent>
       </TypographyComponent>
