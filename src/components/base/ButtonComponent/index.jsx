@@ -14,9 +14,9 @@ const ButtonComponent = ({
     <Button
       variant={variant}
       sx={{
-        ...styleOverrides,
         width: fullWidth ? "100%" : "auto",
         ...styles({ extraRounded }),
+        ...styleOverrides,
       }}
       {...otherProps}
     >

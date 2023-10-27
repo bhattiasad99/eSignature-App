@@ -8,21 +8,23 @@ import CssBaseline from "@mui/material/CssBaseline";
 
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-
+import { MY_DOCUMENTS, MY_SIGNATURES, PROFILE } from "./../../config/constants";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+
 import BoxComponent from "../base/BoxComponent";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import StackComponent from "../base/StackComponent";
+
 import TypographyComponent from "../base/TypographyComponent";
 import DividerComponent from "../base/DividerComponent";
-
+import IconButtonComponent from "../base/IconButtonComponent";
+import { useDispatch } from "react-redux";
+import { authActions } from "./../../store/slices/auth";
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -73,6 +75,7 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function MiniDrawer({ children }) {
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -82,42 +85,18 @@ export default function MiniDrawer({ children }) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  const navigate = useNavigate();
   const location = useLocation();
-  const pageHeaderName = location.pathname.split("/").pop();
-  console.log(
-    pageHeaderName
-      .split("-")
-      .map((el) => el.toUpperCase())
-      .join(" ")
-  );
+  const pageHeaderName = location.pathname.split("/")[2];
 
   const modifiedPageHeader = pageHeaderName
-    .split("-")
-    .map((el) => el.toUpperCase())
-    .join(" ");
+    ?.split("-")
+    ?.map((el) => el.toUpperCase())
+    ?.join(" ");
 
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      {/* <AppBar position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{
-              marginRight: 5,
-              ...(open && { display: "none" }),
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Mini variant drawer
-          </Typography>
-        </Toolbar>
-      </AppBar> */}
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton
@@ -134,53 +113,36 @@ export default function MiniDrawer({ children }) {
         </DrawerHeader>
         <Divider />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
+          {[MY_DOCUMENTS, MY_SIGNATURES, PROFILE].map(
+            ({ name, label, icon }) => (
+              <ListItem key={name} disablePadding sx={{ display: "block" }}>
+                <ListItemButton
+                  onClick={() => {
+                    navigate(`/user/${name}`);
+                  }}
                   sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                  }}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {icon}
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={label}
+                    sx={{ opacity: open ? 1 : 0 }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            )
+          )}
         </List>
       </Drawer>
       <BoxComponent component="main" sx={{ flexGrow: 1, p: 0 }}>
@@ -206,16 +168,22 @@ export default function MiniDrawer({ children }) {
                   Role
                 </TypographyComponent>
               </StackComponent>
-              <div
-                style={{
-                  width: "40px",
-                  height: "40px",
-                  borderRadius: "50%",
-                  backgroundColor: "grey",
+              <IconButtonComponent
+                onClick={() => {
+                  dispatch(authActions.logout());
                 }}
               >
-                &nbsp;
-              </div>
+                <div
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                    backgroundColor: "grey",
+                  }}
+                >
+                  &nbsp;
+                </div>
+              </IconButtonComponent>
             </StackComponent>
           </StackComponent>
         </DrawerHeader>

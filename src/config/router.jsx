@@ -10,9 +10,15 @@ import {
   FORGOT_PASSWORD,
   LOGIN,
   REGISTER,
-  ROOT,
+  MY_DOCUMENTS,
+  MY_SIGNATURES,
+  PROFILE,
 } from "./constants";
-import Dashboard from "../pages/dashboard";
+import MyDocuments from "./../pages/my-documents";
+import MyDocument from "./../pages/my-document";
+import CreateDoc from "./../pages/create-doc";
+import MySignatures from "./../pages/my-signatures";
+import Profile from "./../pages/profile";
 import ForgotPassword from "../pages/forgot-password";
 import EmailSent from "../pages/email-sent";
 
@@ -41,11 +47,27 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Navigate to={ROOT} />,
+        element: <Navigate to={MY_DOCUMENTS.name} />,
       },
       {
-        path: ROOT,
-        element: <Dashboard />,
+        path: MY_DOCUMENTS.name,
+        element: <MyDocuments />,
+      },
+      {
+        path: `${MY_DOCUMENTS.name}/:id`,
+        element: <MyDocument />,
+      },
+      {
+        path: `${MY_DOCUMENTS.name}/create-doc`,
+        element: <CreateDoc />,
+      },
+      {
+        path: MY_SIGNATURES.name,
+        element: <MySignatures />,
+      },
+      {
+        path: PROFILE.name,
+        element: <Profile />,
       },
     ],
   },
