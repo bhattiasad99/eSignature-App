@@ -7,6 +7,27 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import IconButton from "@mui/material/IconButton";
 import { useNavigate } from "react-router-dom";
 
+export const STATUS_INTERNAL_SERVER_ERROR = 500;
+export const STATUS_SUCCESS = 200;
+
+export const COLLECTION_LOGS = "logs";
+export const COLLECTION_USERS = "users";
+
+export const SUCCESS = "success";
+export const DEFAULT = "default";
+export const ERROR = "error";
+export const WARNING = "warning";
+export const INFO = "info";
+export const LOG = "log";
+export const FIREBASE_INVALID_PASSWORD_ERROR = "auth/wrong-password";
+export const ALLOWED_CONSOLE_VARIANTS = [LOG, INFO, WARNING, ERROR];
+export const ALLOWED_SNACKBAR_VARIANTS = [
+  DEFAULT,
+  ERROR,
+  SUCCESS,
+  WARNING,
+  INFO,
+];
 export const MY_DOCUMENTS = {
   name: "my-documents",
   label: "My Documents",

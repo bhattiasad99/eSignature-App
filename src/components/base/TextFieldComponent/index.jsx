@@ -1,7 +1,9 @@
 import { TextField } from "@mui/material";
 import PropTypes from "prop-types";
 
-const TypographyComponent = ({ value, onChange, ...otherProps }) => {
+const TypographyComponent = ({ value, onChange = () => {
+  return
+}, ...otherProps }) => {
   return (
     <TextField
       {...otherProps}

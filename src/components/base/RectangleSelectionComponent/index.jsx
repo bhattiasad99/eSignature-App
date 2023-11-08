@@ -32,7 +32,7 @@ function RectangleSelectionComponent({
         backgroundColor: "rgba(0, 0, 255, 0.4)",
         borderColor: "blue",
       }}
-      onMouseUp={(e) => {
+      onMouseUp={() => {
         if (!disabled) {
           handleSelection(selection);
         }

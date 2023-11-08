@@ -4,6 +4,7 @@ const MyDocument = () => {
   const location = useLocation();
   const docName = location.pathname.split("/").pop();
   console.log(docName);
+
   return <div>MyDocument</div>;
 };
 

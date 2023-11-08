@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoadedDocument from "./LoadedDocument";
 import UploadDocument from "./UploadDocument";
+import { getDocsTest } from "../../services";
 
 const CreateDoc = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -12,7 +13,11 @@ const CreateDoc = () => {
     setPdf(uploadedPdf);
     // You can add code here to handle the file upload, e.g., send it to a server or process it.
   };
-
+  useEffect(() => {
+    getDocsTest().then((res) => {
+      console.log("COMPLETE");
+    });
+  }, []);
   return (
     <>
       {!isLoaded ? (
